@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrossFit Club - نادي كروس فت</title>
+    <!-- مكتبات CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css">
+    <!-- خطوط Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #0D0D0D;
+            --primary-orange: #FF6B00;
+            --primary-white: #FFFFFF;
+            --light-gray: #F5F5F5;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--light-gray);
+            scroll-behavior: smooth;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-scrolled {
+            background-color: rgba(13, 13, 13, 0.95);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .program-card, .coach-card, .pricing-card, .blog-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .program-card:hover, .coach-card:hover, .pricing-card:hover, .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 100;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-whatsapp:hover {
+            transform: scale(1.1);
+        }
+        
+        .schedule-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .schedule-table th, .schedule-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .schedule-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .today-cell {
+            background-color: rgba(255, 107, 0, 0.15) !important;
+            font-weight: bold;
+        }
+        
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 107, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, #ff8c3a 100%);
+        }
+        
+        .featured-products {
+            background: linear-gradient(to bottom, var(--primary-black) 0%, #2d2d2d 100%);
+        }
+        
+        /* أنيميشن للنبضات */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        /* تأثيرات للكروت */
+        .hover-orange-line:hover {
+            border-bottom: 3px solid var(--primary-orange);
+        }
+        
+        /* تصميم المتجر */
+        .product-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* قسم المتميزون */
+        .champions-section {
+            background: linear-gradient(rgba(13, 13, 13, 0.9), rgba(13, 13, 13, 0.9)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        /* تعديلات للهواتف */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 80vh;
+            }
+            
+            .schedule-table {
+                font-size: 12px;
+            }
+            
+            .schedule-table th, .schedule-table td {
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- زر الواتساب العائم -->
+    <a href="https://wa.me/966512345678" class="floating-whatsapp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- الهيدر -->
+    <header class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="text-white font-bold text-2xl flex items-center">
+                    <span class="bg-orange-500 p-2 rounded-lg mr-2">CF</span>
+                    <span>CrossFit <span class="text-orange-500">Club</span></span>
+                </div>
+            </div>
+            
+            <!-- قائمة التنقل للأجهزة الكبيرة -->
+            <div class="hidden md:flex space-x-2">
+                <a href="#" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">الرئيسية</a>
+                <a href="#about" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">من نحن</a>
+                <a href="#programs" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">البرامج</a>
+                <a href="#coaches" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">المدربون</a>
+                <a href="#pricing" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">الأسعار</a>
+                <a href="#schedule" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">الجدول</a>
+                <a href="#gallery" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">المعرض</a>
+                <a href="#store" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">المتجر</a>
+                <a href="#champions" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">المتميزون</a>
+                <a href="#contact" class="px-4 py-2 text-white hover:bg-orange-500 rounded-lg transition">اتصل بنا</a>
+            </div>
+            
+            <div class="hidden md:block">
+                <a href="#pricing" class="bg-orange-500 text-white px-6 py-2 rounded-lg font-bold hover:bg-orange-600 transition">انضم إلينا</a>
+            </div>
+            
+            <!-- زر القائمة للأجهزة الصغيرة -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- قائمة الهواتف -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">الرئيسية</a>
+                <a href="#about" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">من نحن</a>
+                <a href="#programs" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">البرامج</a>
+                <a href="#coaches" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">المدربون</a>
+                <a href="#pricing" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">الأسعار</a>
+                <a href="#schedule" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">الجدول</a>
+                <a href="#gallery" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">المعرض</a>
+                <a href="#store" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">المتجر</a>
+                <a href="#champions" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">المتميزون</a>
+                <a href="#contact" class="block px-3 py-2 text-white hover:bg-orange-500 rounded">اتصل بنا</a>
+                <a href="#pricing" class="block px-3 py-2 bg-orange-500 text-white rounded font-bold">انضم إلينا</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container mx-auto px-4 text-center text-white">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-down">أطلق قوتك الداخلية</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto" data-aos="fade-down" data-aos-delay="200">
+                انضم إلى نادي كروس فت الرائد وابدأ رحلتك نحو لياقة أفضل وصحة أقوى
+            </p>
+            <a href="#pricing" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg text-lg inline-block pulse-animation" data-aos="zoom-in" data-aos-delay="400">
+                جرب حصة مجانية
+            </a>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">لماذا تختار نادي كروس فت؟</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center" data-aos="fade-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-dumbbell text-orange-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">أحدث الأجهزة</h3>
+                    <p class="text-gray-600">نوفر أحدث الأجهزة الرياضية والمعدات عالية الجودة لتحقيق أفضل النتائج</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-users text-orange-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">مدربون محترفون</h3>
+                    <p class="text-gray-600">مدربون معتمدون وخبراء في اللياقة البدنية لمساعدتك في تحقيق أهدافك</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-heartbeat text-orange-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">بيئة محفزة</h3>
+                    <p class="text-gray-600">مجتمع داعم وبيئة محفزة تساعدك على الاستمرار وتحقيق أهدافك</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock text-orange-500 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">مرونة في المواعيد</h3>
+                    <p class="text-gray-600">جداول مرنة تناسب أوقات الجميع مع فترات عمل طويلة طوال الأسبوع</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">برامجنا التدريبية</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">اكتشف مجموعة برامجنا المصممة خصيصًا لتلبية جميع مستويات اللياقة البدنية والأهداف</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="program-card bg-white rounded-xl overflow-hidden shadow-lg" data-aos="flip-left">
+                    <img src="https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="برنامج المبتدئين" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3">برنامج المبتدئين</h3>
+                        <p class="text-gray-600 mb-4">برنامج تمهيدي مصمم خصيصًا للمبتدئين لبناء الأساسيات بطريقة آمنة وفعالة.</p>
+                        <a href="#" class="text-orange-500 font-bold hover:text-orange-600 transition">اكتشف المزيد <i class="fas fa-arrow-left mr-2"></i></a>
+                    </div>
+                </div>
+                
+                <div class="program-card bg-white rounded-xl overflow-hidden shadow-lg" data-aos="flip-left" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="برنامج المتقدمين" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3">برنامج المتقدمين</h3>
+                        <p class="text-gray-600 mb-4">للمتدربين ذوي الخبرة الذين يبحثون عن تحديات جديدة وتمارين متقدمة.</p>
+                        <a href="#" class="text-orange-500 font-bold hover:text-orange-600 transition">اكتشف المزيد <i class="fas fa-arrow-left mr-2"></i></a>
+                    </div>
+                </div>
+                
+                <div class="program-card bg-white rounded-xl overflow-hidden shadow-lg" data-aos="flip-left" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="برنامج المنافسات" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3">برنامج المنافسات</h3>
+                        <p class="text-gray-600 mb-4">للرياضيين المحترفين الذين يستعدون للمنافسات والمسابقات المحلية والدولية.</p>
+                        <a href="#" class="text-orange-500 font-bold hover:text-orange-600 transition">اكتشف المزيد <i class="fas fa-arrow-left mr-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coaches Section -->
+    <section id="coaches" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">مدربونا المحترفون</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">تعرف على فريقنا من المدربين المعتمدين ذوي الخبرة الواسعة في اللياقة البدنية</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="coach-card bg-gray-100 rounded-xl overflow-hidden text-center p-6" data-aos="zoom-in">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="مدرب" class="w-32 h-32 rounded-full mx-auto object-cover mb-4">
+                    <h3 class="text-xl font-bold">أحمد السعدي</h3>
+                    <p class="text-orange-500 mb-3">خبير كروس فت معتمد</p>
+                    <p class="text-gray-600 mb-4">مدرب معتمد بخبرة تزيد عن 10 سنوات في اللياقة البدنية وتطوير الأداء.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="coach-card bg-gray-100 rounded-xl overflow-hidden text-center p-6" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="مدرب" class="w-32 h-32 rounded-full mx-auto object-cover mb-4">
+                    <h3 class="text-xl font-bold">سارة العبدالله</h3>
+                    <p class="text-orange-500 mb-3">مدربة لياقة بدنية</p>
+                    <p class="text-gray-600 mb-4">متخصصة في برامج التخسيس وتمارين القوة للنساء، حاصلة على عدة شهادات دولية.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="coach-card bg-gray-100 rounded-xl overflow-hidden text-center p-6" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="مدرب" class="w-32 h-32 rounded-full mx-auto object-cover mb-4">
+                    <h3 class="text-xl font-bold">محمد الحربي</h3>
+                    <p class="text-orange-500 mb-3">خبير تغذية ولياقة</p>
+                    <p class="text-gray-600 mb-4">مدرب معتمد ومتخصص في التغذية الرياضية وبرامج التضخيم وبناء العضلات.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="coach-card bg-gray-100 rounded-xl overflow-hidden text-center p-6" data-aos="zoom-in" data-aos-delay="600">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="مدرب" class="w-32 h-32 rounded-full mx-auto object-cover mb-4">
+                    <h3 class="text-xl font-bold">لينا التميمي</h3>
+                    <p class="text-orange-500 mb-3">مدربة كروس فت محترفة</p>
+                    <p class="text-gray-600 mb-4">بطلة سابقة في كروس فت ومدربة معتمدة لبرامج المنافسات والمتقدمين.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-600 hover:text-orange-500"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">باقات العضوية</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">اختر الباقة التي تناسب أهدافك وميزانيتك مع خيارات مرنة للجميع</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="pricing-card bg-white rounded-xl overflow-hidden shadow-lg text-center" data-aos="fade-up">
+                    <div class="bg-gray-800 text-white py-6">
+                        <h3 class="text-2xl font-bold">الباقة الأساسية</h3>
+                        <div class="mt-4">
+                            <span class="text-4xl font-bold">199</span>
+                            <span class="text-lg">جنيه/شهر</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 mb-8">
+                            <li>3 حصص أسبوعيًا</li>
+                            <li>تدريب جماعي</li>
+                            <li>استخدام الأجهزة</li>
+                            <li>لا يشمل المدرب الشخصي</li>
+                            <li>استشارة غذائية أساسية</li>
+                        </ul>
+                        <a href="#" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-lg inline-block transition">اشترك الآن</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card bg-white rounded-xl overflow-hidden shadow-lg text-center transform md:scale-105 relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-gray-800 text-white py-6">
+                        <h3 class="text-2xl font-bold">الباقة المتقدمة</h3>
+                        <div class="mt-4">
+                            <span class="text-4xl font-bold">349</span>
+                            <span class="text-lg">جنيه/شهر</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 mb-8">
+                            <li>5 حصص أسبوعيًا</li>
+                            <li>تدريب جماعي ومجموعات صغيرة</li>
+                            <li>استخدام جميع الأجهزة</li>
+                            <li>جلسة مدرب شخصي أسبوعية</li>
+                            <li>استشارة غذائية متقدمة</li>
+                        </ul>
+                        <a href="#" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-lg inline-block transition">اشترك الآن</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card bg-white rounded-xl overflow-hidden shadow-lg text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-gray-800 text-white py-6">
+                        <h3 class="text-2xl font-bold">الباقة المميزة</h3>
+                        <div class="mt-4">
+                            <span class="text-4xl font-bold">599</span>
+                            <span class="text-lg">جنيه/شهر</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3 mb-8">
+                            <li>حصص غير محدودة</li>
+                            <li>تدريب شخصي مكثف</li>
+                            <li>جميع الخدمات بدون قيود</li>
+                            <li>3 جلسات مدرب شخصي أسبوعيًا</li>
+                            <li>برنامج تغذية مخصص ومتابعة</li>
+                        </ul>
+                        <a href="#" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-lg inline-block transition">اشترك الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">جدول الحصص</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">خطة أسبوعية منظمة لجميع برامجنا التدريبية مع أفضل المدربين</p>
+            
+            <div class="overflow-x-auto">
+                <table class="schedule-table">
+                    <thead>
+                        <tr class="bg-gray-800 text-white">
+                            <th>الوقت</th>
+                            <th>الأحد</th>
+                            <th>الاثنين</th>
+                            <th>الثلاثاء</th>
+                            <th>الأربعاء</th>
+                            <th>الخميس</th>
+                            <th>الجمعة</th>
+                            <th>السبت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="bg-gray-100 font-bold">6:00 - 7:00 ص</td>
+                            <td>كروس فت (أحمد)</td>
+                            <td>تمارين قوة (محمد)</td>
+                            <td>كروس فت (لينا)</td>
+                            <td>تمارين قوة (محمد)</td>
+                            <td>كروس فت (أحمد)</td>
+                            <td class="bg-gray-200">إجازة</td>
+                            <td>كارديو (سارة)</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-gray-100 font-bold">8:00 - 9:00 ص</td>
+                            <td>كارديو (سارة)</td>
+                            <td>كروس فت (لينا)</td>
+                            <td>كارديو (سارة)</td>
+                            <td>كروس فت (أحمد)</td>
+                            <td>كارديو (سارة)</td>
+                            <td class="bg-gray-200">إجازة</td>
+                            <td>كروس فت (لينا)</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-gray-100 font-bold">5:00 - 6:00 م</td>
+                            <td>تمارين قوة (محمد)</td>
+                            <td>كروس فت (أحمد)</td>
+                            <td>تمارين قوة (محمد)</td>
+                            <td>كروس فت (لينا)</td>
+                            <td>تمارين قوة (محمد)</td>
+                            <td class="bg-gray-200">إجازة</td>
+                            <td>كروس فت (أحمد)</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-gray-100 font-bold">7:00 - 8:00 م</td>
+                            <td>كروس فت (لينا)</td>
+                            <td>كارديو (سارة)</td>
+                            <td>كروس فت (أحمد)</td>
+                            <td>كارديو (سارة)</td>
+                            <td>كروس فت (لينا)</td>
+                            <td class="bg-gray-200">إجازة</td>
+                            <td>تمارين قوة (محمد)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">معرض الصور</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">لقطات من أجواء النادي وطاقم التدريب والأنشطة المختلفة</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="gallery-item" data-aos="zoom-in">
+                    <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="صالة الألعاب" class="w-full h-40 object-cover">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="تدريب" class="w-full h-40 object-cover">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="كروس فت" class="w-full h-40 object-cover">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1517344884509-a0c97ec11bcc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="تمارين" class="w-full h-40 object-cover">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="مدرب" class="w-full h-40 object-cover">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="منافسات" class="w-full h-40 object-cover">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="600">
+                    <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="مجتمع" class="w-full h-40 object-cover">
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="700">
+                    <img src="https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="أجهزة" class="w-full h-40 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Store Section -->
+    <section id="store" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">متجر النادي</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">اكتشف منتجاتنا الحصرية من ملابس رياضية ومكملات غذائية ومستلزمات التدريب</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md" data-aos="flip-left">
+                    <img src="img/3.jpeg" alt="قماش كروس فت" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold">تيشرت كروس فت</h3>
+                        <p class="text-gray-600 text-sm mb-2">تيشرت قطني عالي الجودة بشعار النادي</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-orange-500 font-bold">99 ج.م</span>
+                            <button class="bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600 transition">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md" data-aos="flip-left" data-aos-delay="200">
+                    <img src="img/1.png" alt="قنينة ماء" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold">قنينة ماء رياضية</h3>
+                        <p class="text-gray-600 text-sm mb-2">قنينة ماء بحجم 1 لتر مقاومة للكسر</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-orange-500 font-bold">75 ج.م</span>
+                            <button class="bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600 transition">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md" data-aos="flip-left" data-aos-delay="400">
+                    <img src="img/2.jpg" alt="حذاء رياضي" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold">حذاء كروس فت</h3>
+                        <p class="text-gray-600 text-sm mb-2">حذاء رياضي مخصص لتمارين القوة والكروس فت</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-orange-500 font-bold">349 ج.م</span>
+                            <button class="bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600 transition">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-md" data-aos="flip-left" data-aos-delay="600">
+                    <img src="img/3.jpg" alt="بروتين" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-lg font-bold">مسحوق بروتين</h3>
+                        <p class="text-gray-600 text-sm mb-2">بروتين مصل اللبن عالي الجودة 2 كجم</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-orange-500 font-bold">199 ج.م</span>
+                            <button class="bg-orange-500 text-white px-3 py-1 rounded text-sm hover:bg-orange-600 transition">أضف للسلة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-lg inline-block transition">تصفح جميع المنتجات</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Champions Section -->
+    <section id="champions" class="py-16 champions-section text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">المتميزون لدينا</h2>
+            <p class="text-center max-w-2xl mx-auto mb-12">تعرف على أبطالنا الذين حققوا إنجازات رائعة في عالم اللياقة والكروس فت</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800 bg-opacity-70 rounded-xl p-6 text-center" data-aos="fade-up">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="بطل" class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-orange-500">
+                    <h3 class="text-xl font-bold">خالد الفهد</h3>
+                    <p class="text-orange-300 mb-3">بطل كروس فت 2023</p>
+                    <p class="mb-4">حصل على المركز الأول في بطولة المملكة للكروس فت لفئة المتقدمين عام 2023</p>
+                    <div class="flex justify-center space-x-3">
+                        <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm">القوة</span>
+                        <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm">التحمل</span>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 bg-opacity-70 rounded-xl p-6 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="بطل" class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-orange-500">
+                    <h3 class="text-xl font-bold">نورة القحطاني</h3>
+                    <p class="text-orange-300 mb-3">بطلة رفع الأثقال 2022</p>
+                    <p class="mb-4">حصلت على الميدالية الذهبية في بطولة رفع الأثقال على مستوى الخليج عام 2022</p>
+                    <div class="flex justify-center space-x-3">
+                        <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm">رفع الأثقال</span>
+                        <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm">التقنية</span>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 bg-opacity-70 rounded-xl p-6 text-center" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="بطل" class="w-32 h-32 rounded-full mx-auto object-cover mb-4 border-4 border-orange-500">
+                    <h3 class="text-xl font-bold">فهد الشمري</h3>
+                    <p class="text-orange-300 mb-3">بطل التحمل 2023</p>
+                    <p class="mb-4">تميز في مسابقات التحمل والقدرة على الأداء العالي لفترات طويلة وحقق أرقامًا قياسية</p>
+                    <div class="flex justify-center space-x-3">
+                        <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm">التحمل</span>
+                        <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm">الأداء</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">آراء عملائنا</h2>
+            
+            <div class="swiper testimonials-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial-card p-8 mx-4">
+                            <div class="flex items-center mb-6">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="عميل" class="w-16 h-16 rounded-full object-cover">
+                                <div class="mr-4">
+                                    <h4 class="font-bold">عبدالله السبيعي</h4>
+                                    <p class="text-orange-500">عضوية مميزة</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">"النادي غير حياتي تمامًا، فقدت أكثر من 20 كجم واكتسبت ثقة كبيرة في نفسي. المدربون محترفون والجو رائع!"</p>
+                            <div class="flex mt-4">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="testimonial-card p-8 mx-4">
+                            <div class="flex items-center mb-6">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="عميل" class="w-16 h-16 rounded-full object-cover">
+                                <div class="mr-4">
+                                    <h4 class="font-bold">سلمى العتيبي</h4>
+                                    <p class="text-orange-500">عضوية متقدمة</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">"كنت أبحث عن مكان يشعرني بالأمان والراحة كمبتدئة، وهذا ما وجدته في نادي كروس فت. الآن أنا أتدرب بانتظام وأشعر بتغير كبير في قوتي وصحتي."</p>
+                            <div class="flex mt-4">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="swiper-slide">
+                        <div class="testimonial-card p-8 mx-4">
+                            <div class="flex items-center mb-6">
+                                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="عميل" class="w-16 h-16 rounded-full object-cover">
+                                <div class="mr-4">
+                                    <h4 class="font-bold">ياسر الحربي</h4>
+                                    <p class="text-orange-500">عضوية أساسية</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">"الأجواء في النادي تحفز على التدريب، والمدربون يقدمون الدعم الكامل. البرامج متنوعة وتناسب جميع المستويات. أنصح الجميع بالتجربة."</p>
+                            <div class="flex mt-4">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="cta-section py-16 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">جاهز لبدء رحلتك نحو لياقة أفضل؟</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">انضم إلينا اليوم واحصل على أسبوع تجريبي مجاني لجميع البرامج</p>
+<a href="#contact" 
+   class="bg-white text-black hover:bg-gray-100 font-bold py-3 px-8 rounded-lg text-lg inline-block transition">
+   سجل الآن
+</a>        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">اتصل بنا</h2>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">يسعدنا تواصلكم معنا لأي استفسار أو لتجربة النادي</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-700 mb-2">الاسم الكامل</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-gray-700 mb-2">البريد الإلكتروني</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">الرسالة</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg w-full transition">إرسال الرسالة</button>
+                    </form>
+                </div>
+                
+                <div>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-8">
+                        <h3 class="text-xl font-bold mb-4">معلومات التواصل</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-orange-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-orange-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">العنوان</h4>
+                                    <p class="text-gray-600">حي الرياض، شارع الملك فهد، الرياض</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-orange-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone text-orange-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">الهاتف</h4>
+                                    <p class="text-gray-600">+966 12 345 6789</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-orange-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-orange-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">البريد الإلكتروني</h4>
+                                    <p class="text-gray-600">info@crossfitclub.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-orange-100 p-3 rounded-full mr-4">
+                                    <i class="fas fa-clock text-orange-500"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">ساعات العمل</h4>
+                                    <p class="text-gray-600">السبت - الخميس: 6 ص - 10 م</p>
+                                    <p class="text-gray-600">الجمعة: 4 م - 10 م</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4">
+    <a href="#" class="bg-gray-800 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+        <i class="fab fa-twitter"></i>
+    </a>
+    <a href="#" class="bg-gray-800 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+        <i class="fab fa-instagram"></i>
+    </a>
+    <a href="#" class="bg-gray-800 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="#" class="bg-gray-800 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-orange-500 transition">
+        <i class="fab fa-youtube"></i>
+    </a>
+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-6">CrossFit Club</h3>
+                    <p class="text-gray-400 mb-6">نادي كروس فت الرائد في المملكة، نقدم أفضل البرامج التدريبية بأحدث الأجهزة وبإشراف مدربين معتمدين.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-orange-500"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-orange-500"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-orange-500"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-orange-500"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">روابط سريعة</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-orange-500 transition">الرئيسية</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-orange-500 transition">من نحن</a></li>
+                        <li><a href="#programs" class="text-gray-400 hover:text-orange-500 transition">البرامج</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-orange-500 transition">الأسعار</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-orange-500 transition">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">ساعات العمل</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li>السبت - الخميس: 6 ص - 10 م</li>
+                        <li>الجمعة: 4 م - 10 م</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">النشرة البريدية</h3>
+                    <p class="text-gray-400 mb-4">اشترك في نشرتنا البريدية لتصلك آخر العروض والأخبار</p>
+                    <form class="flex">
+                        <input type="email" placeholder="بريدك الإلكتروني" class="px-4 py-2 w-full rounded-l-lg focus:outline-none">
+                        <button type="submit" class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded-r-lg transition">اشترك</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>© 2023 CrossFit Club. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- مكتبات JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
+    <script>
+        // تهيئة AOS للانيميشن
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+        
+        // تهيئة Swiper للآراء
+        const testimonialsSwiper = new Swiper('.testimonials-swiper', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            },
+            autoplay: {
+                delay: 5000
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1
+                },
+                768: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                }
+            }
+        });
+        
+        // تغيير لون الهيدر عند التمرير
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+        
+        // قائمة الهاتف
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Lightbox للمعرض
+        lightGallery(document.getElementById('gallery'), {
+            selector: '.gallery-item'
+        });
+    </script>
+</body>
+</html>
